@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    <link rel="stylesheet" href="Style.CSS">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-caret-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="Arijith Singh.webp" class="song-img">
+            <h1>HEERIYE HEERIYE</h1>
+            <p style="font-weight: 400">Arijith Singh</p>
+            <audio controls id="song">
+                <source src="_Heeriye_320(PagalWorld.com.sb).mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div>
+                    <i class="fa-solid fa-backward"></i>
+                    <i onclick="playPause()" class="fa-solid fa-play" id="ctrlIcon"></i>
+                    <i class="fa-solid fa-forward"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        let ctrlIcon = document.getElementById("ctrlIcon");
+
+        song.onloadedmetadata = function() {
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+        };
+
+        function playPause() {
+            if (song.paused) {
+                song.play();
+                ctrlIcon.classList.remove("fa-play");
+                ctrlIcon.classList.add("fa-pause");
+            } else {
+                song.pause();
+                ctrlIcon.classList.remove("fa-pause");
+                ctrlIcon.classList.add("fa-play");
+            }
+        }
+
+        song.ontimeupdate = function() {
+            progress.value = song.currentTime;
+        };
+
+        progress.oninput = function() {
+            song.currentTime = progress.value;
+        };
+    </script>
+</body>
+</html>
